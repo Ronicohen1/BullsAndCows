@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BullsAndCows.Views.MainPage"
+             BackgroundColor="#FFD9FF">
+
+    <!-- חלוקת המסך לשלושה חלקים -->
+    <Grid RowDefinitions="Auto,*,Auto"
+          Padding="0,40,0,20">
+
+        <!-- החלק העליון של המסך -->
+        <VerticalStackLayout Grid.Row="0" Spacing="12">
+
+            <!-- כותרת המשחק -->
+            <Label Text="Bulls and Cows, by Roni Cohen"
+                   FontSize="24"
+                   HorizontalTextAlignment="Center" />
+
+            <!-- הודעת תוצאת הניחוש -->
+            <Border Background="#FDFEC6"
+                    Stroke="#042433"
+                    StrokeThickness="1.5"
+                    StrokeShape="RoundRectangle 6"
+                    MinimumWidthRequest="140"
+                    HorizontalOptions="Center"
+                    Padding="14,6">
+
+                <Label Text="{Binding StatusMessage}"
+                       FontSize="24"
+                       HorizontalTextAlignment="Center" />
+            </Border>
+
+            <!-- שם השחקן -->
+            <VerticalStackLayout WidthRequest="270"
+                                 HorizontalOptions="Center"
+                                 Spacing="2">
+
+                <Label Text="Player"
+                       FontSize="22" />
+
+                <Border Background="#FDFEC6"
+                        Stroke="#042433"
+                        StrokeThickness="1.5"
+                        StrokeShape="RoundRectangle 6"
+                        Padding="8,0">
+
+                    <Entry Text="{Binding PlayerName}"
+                           Placeholder="Enter your name here"
+                           FontSize="22"
+                           BackgroundColor="Transparent"
+                           HorizontalTextAlignment="Center" />
+                </Border>
+            </VerticalStackLayout>
+
+            <!-- הכנסת ניחוש -->
+            <VerticalStackLayout WidthRequest="300"
+                                 HorizontalOptions="Center"
+                                 Spacing="2">
+
+                <Label Text="Your guess"
+                       FontSize="22" />
+
+                <Border Background="#FDFEC6"
+                        Stroke="#042433"
+                        StrokeThickness="1.5"
+                        StrokeShape="RoundRectangle 32"
+                        HeightRequest="64"
+                        Padding="15,0">
+
+                    <Entry Text="{Binding CurrentGuess}"
+                           IsEnabled="{Binding CanGuess}"
+                           Placeholder="Enter your guess"
+                           Keyboard="Numeric"
+                           MaxLength="4"
+                           FontSize="26"
+                           FontAttributes="Bold"
+                           BackgroundColor="Transparent"
+                           HorizontalTextAlignment="Center"
+                           VerticalOptions="Center" />
+                </Border>
+            </VerticalStackLayout>
+
+            <!-- כפתור להגרלת מספר אקראי -->
+            <Button Text="Generate Random Number"
+                    Command="{Binding GenerateRandomNumberCommand}"
+                    FontSize="18"
+                    TextColor="Black"
+                    BackgroundColor="#FDFEC6"
+                    BorderColor="#042433"
+                    BorderWidth="1.5"
+                    CornerRadius="6"
+                    WidthRequest="260"
+                    HeightRequest="42"
+                    HorizontalOptions="Center" />
+
+            <!-- הצגת המספר שהוגרל -->
+            <Label Text="{Binding RandomNumberText}"
+                   FontSize="22"
+                   FontAttributes="Bold"
+                   TextColor="Black"
+                   HorizontalTextAlignment="Center"
+                   HorizontalOptions="Center" />
+
+            <!-- הודעת שגיאה וכפתור שליחה -->
+            <Grid ColumnDefinitions="*,Auto"
+                  WidthRequest="320"
+                  HorizontalOptions="Center">
+
+                <Label Grid.Column="0"
+                       Text="{Binding ErrorMessage}"
+                       IsVisible="{Binding HasError}"
+                       FontSize="20"
+                       HorizontalTextAlignment="Center"
+                       VerticalOptions="Center" />
+
+                <Button Grid.Column="1"
+                        Text="Enter"
+                        Command="{Binding SubmitGuessCommand}"
+                        IsEnabled="{Binding CanGuess}"
+                        FontSize="24"
+                        TextColor="Black"
+                        BackgroundColor="#FDFEC6"
+                        BorderColor="#042433"
+                        BorderWidth="1.5"
+                        CornerRadius="21"
+                        Padding="0"
+                        WidthRequest="100"
+                        HeightRequest="42" />
+            </Grid>
+
+        </VerticalStackLayout>
+
+        <!-- החלק התחתון של המסך -->
+        <VerticalStackLayout Grid.Row="2" Spacing="10">
+
+            <!-- כפתור משחק חדש -->
+            <Button Text="New game"
+                    Command="{Binding NewGameCommand}"
+                    FontSize="22"
+                    TextColor="Black"
+                    BackgroundColor="#FDFEC6"
+                    BorderColor="#042433"
+                    BorderWidth="1.5"
+                    CornerRadius="6"
+                    Padding="0"
+                    WidthRequest="150"
+                    HeightRequest="42"
+                    HorizontalOptions="Center" />
+
+            <!-- מספר ניסיונות ושיא -->
+            <Grid ColumnDefinitions="*,*"
+                  Padding="8,0">
+
+                <Label Grid.Column="0"
+                       FontSize="22"
+                       Text="{Binding AttemptCount,
+                              StringFormat='Attempts: {0}'}" />
+
+                <Label Grid.Column="1"
+                       FontSize="22"
+                       Text="{Binding BestScore,
+                              StringFormat='Best Score: {0}'}" />
+            </Grid>
+
+        </VerticalStackLayout>
+
+    </Grid>
+</ContentPage>
